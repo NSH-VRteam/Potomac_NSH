@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novel Signature Homes - Premium Real Estate in Houston</title>
+  <meta name="description"
+    content="Novel Signature Homes offers premium real estate properties in Houston, Texas. Explore our VR tours, request custom videos, and view our exclusive portfolio.">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Jost:wght@400;500;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ── Reset ── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--bg-page);
+      padding: 32px 16px;
+      font-family: 'Jost', sans-serif;
+      /* Add a subtle gradient overlay to the background for depth */
+      background-image: radial-gradient(circle at top right, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+    }
+
+    /* ── Tokens ── */
+    :root {
+      /* Colors */
+      --bg-page: #d6d3cc;
+      /* warm grey page background */
+      --bg-card: rgba(250, 249, 247, 0.97);
+      /* near-white card, slight glass effect */
+      --bg-btn: #f5ede8;
+      /* blush button fill */
+      --bg-btn-hover: #eeddd5;
+      /* slightly deeper blush on hover */
+      --border-card: #e8e0d8;
+      /* subtle card border */
+      --border-btn: #e2d5cd;
+      /* button border */
+      --text-brand: #2c2824;
+      /* near-black brand name */
+      --text-address: #1a1614;
+      /* bold address */
+      --text-btn: #3d2e28;
+      /* button label */
+      --text-sub: #7a6f68;
+      /* subtext / "Powered by" */
+      --icon-color: #3d2e28;
+      /* social icon stroke */
+
+      /* Shape */
+      --radius-card: 24px;
+      --radius-btn: 50px;
+      /* fully pill-shaped */
+      --radius-avatar: 50%;
+
+      /* Shadow */
+      --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.12), 0 2px 10px rgba(0, 0, 0, 0.05);
+      --shadow-btn: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+
+    .delay-1 {
+      animation-delay: 0.1s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.3s;
+    }
+
+    .delay-4 {
+      animation-delay: 0.4s;
+    }
+
+    .delay-5 {
+      animation-delay: 0.5s;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: 40px 32px 32px;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* ── Avatar ── */
+    .avatar-wrap {
+      width: 104px;
+      height: 104px;
+      border-radius: var(--radius-avatar);
+      overflow: hidden;
+      border: 3px solid #fff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+
+    .avatar-wrap:hover {
+      transform: scale(1.05) translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .avatar-wrap:hover .avatar {
+      transform: scale(1.1);
+    }
+
+    /* ── Brand Block ── */
+    .brand-block {
+      border: 1.5px dashed var(--border-card);
+      border-radius: 12px;
+      padding: 16px 24px;
+      width: 100%;
+      text-align: center;
+      transition: border-color 0.3s ease;
+    }
+
+    .brand-block:hover {
+      border-color: var(--border-btn);
+    }
+
+    .brand-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--text-brand);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .brand-address {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-address);
+      line-height: 1.25;
+    }
+
+    /* ── Social Icons ── */
+    .social-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .social-btn {
+      width: 48px;
+      height: 48px;
+      border: 1.5px solid var(--border-btn);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      transition: background 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+      color: var(--icon-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    .social-btn:hover {
+      background: var(--bg-btn);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+      color: var(--text-brand);
+    }
+
+    .social-btn svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      fill: none;
+      transition: transform 0.3s ease;
+    }
+
+    .social-btn:hover svg {
+      transform: scale(1.1);
+    }
+
+    /* ── CTA Buttons ── */
+    .btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .cta-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 18px 24px;
+      background: var(--bg-btn);
+      border: 1px solid var(--border-btn);
+      border-radius: var(--radius-btn);
+      text-align: center;
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--text-btn);
+      text-decoration: none;
+      box-shadow: var(--shadow-btn);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .cta-btn:hover {
+      background: var(--bg-btn-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      border-color: #dfcac1;
+    }
+
+    .cta-btn:hover::before {
+      left: 100%;
+    }
+
+    .cta-btn:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-btn);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card fade-up">
+
+    <!-- Avatar -->
+    <div class="avatar-wrap fade-up delay-1">
+      <img src="assets/hero.jpg" alt="Novel Signature Homes Property" class="avatar" />
+    </div>
+
+    <!-- Brand Block -->
+    <div class="brand-block fade-up delay-2">
+      <p class="brand-label">NOVEL SIGNATURE HOMES</p>
+      <h1 class="brand-address">Potomac Dr, Houston,<br>Texas, 77057</h1>
+    </div>
+
+    <!-- Social Icons -->
+    <div class="social-row fade-up delay-3">
+      <a href="https://www.instagram.com/novelsignaturehomes/" class="social-btn" aria-label="Instagram" target="_blank"
+        rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" stroke-width="1.8">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
+        </svg>
+      </a>
+      <a href="https://www.linkedin.com/company/novel-signature-homes" class="social-btn" aria-label="LinkedIn"
+        target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+          <rect x="2" y="9" width="4" height="12" />
+          <circle cx="4" cy="4" r="2" />
+        </svg>
+      </a>
+      <a href="https://www.youtube.com/watch?v=TpsguFWJ9yo" class="social-btn" aria-label="YouTube" target="_blank"
+        rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" stroke-width="1.8">
+          <path
+            d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+          <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- CTA Buttons -->
+    <div class="btn-stack fade-up delay-4">
+      <a href="https://novelsignaturehomes.com" class="cta-btn">WEBSITE</a>
+      <a href="https://novelsignaturehomes.com/properties/the-potomac" class="cta-btn">PROPERTY PORTFOLIO</a>
+      <a href="https://novelsignaturehomes.com/properties/the-potomac/?virtualtour=true&view=list"
+        class="cta-btn">VIRTUAL TOUR</a>
+      <a href="tel:+919380224490" class="cta-btn">CONTACT US</a>
+    </div>
+
+
+
+  </main>
+</body>
+
+</html>
